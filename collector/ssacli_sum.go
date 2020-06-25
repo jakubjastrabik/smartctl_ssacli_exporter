@@ -10,11 +10,6 @@ import (
 
 var _ prometheus.Collector = &SsacliSumCollector{}
 
-var (
-	namespace = "ssacli"
-	subsystem = "hw_raid_controller"
-)
-
 // SsacliSumCollector Contain raid controller detail information
 type SsacliSumCollector struct {
 	hwConSlotDesc      *prometheus.Desc
@@ -29,7 +24,9 @@ type SsacliSumCollector struct {
 func NewSsacliSumCollector() *SsacliSumCollector {
 	// Init labels
 	var (
-		labels = []string{
+		namespace = "ssacli"
+		subsystem = "hw_raid_controller"
+		labels    = []string{
 			"raidControllerSN",
 			"raidControllerStatus",
 			"raidControllerFirmVersion",
