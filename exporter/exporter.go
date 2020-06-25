@@ -1,6 +1,10 @@
 package exporter
 
 import (
+	"log"
+	"os/exec"
+	"strings"
+
 	"github.com/jakubjastrabik/smartctl_ssacli_exporter/collector"
 	"github.com/prometheus/client_golang/prometheus"
 )
@@ -26,6 +30,7 @@ func New() *Exporter {
 // the provided channel.
 func (e *Exporter) Describe(ch chan<- *prometheus.Desc) {
 	collector.NewSsacliSumCollector().Describe(ch)
+	collector.NewSsacliPhysDiskCollector("").Describe(ch)
 }
 
 // Collect sends the collected metrics from each of the collectors to
@@ -39,17 +44,20 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 	// Nasledne kazdy disk dostane svojho workera ktory zisti
 	// zvysne info tym ze zavola specificky collector.
 
-	// cmd := "ssacli ctrl slot=0 pd all show status| grep ."
-	// out, err := exec.Command("bash", "-c", cmd).CombinedOutput()
+	cmd := "ssacli ctrl slot=0 pd all show status| grep . | cut -f5 -d' '"
+	out, err := exec.Command("bash", "-c", cmd).CombinedOutput()
 
-	// fmt.Println(string(out))
-	// if err != nil {
-	// 	log.Printf("[ERROR] failed collecting metric %v: %v", out, err)
-	// 	return
-	// }
+	if err != nil {
+		log.Printf("[ERROR] failed collecting metric %v: %v", out, err)
+		return
+	}
 
-	// devices := strings.Split(string(out), "\n")
-	// for _, device := range devices {
-	// 	NewCollector(device).Collect(ch)
-	// }
+	physDisk := strings.Split(string(out), "\n")
+	physDiskN := 1
+	for _, physDisk := range physDisk {
+		if physDisk != "" {
+			collector.NewSsacliPhysDiskCollector(physDisk).Collect(ch)
+			physDiskN++
+		}
+	}
 }
