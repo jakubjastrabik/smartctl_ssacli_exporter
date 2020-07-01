@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -37,7 +36,6 @@ func parseSsacliPhysDisk(s string) *SsacliPhysDisk {
 	var (
 		tmp SsacliPhysDiskData
 	)
-	fmt.Println(s)
 	for _, line := range strings.Split(s, "\n") {
 		kvs := strings.Trim(line, " \t")
 		kv := strings.Split(kvs, ": ")
