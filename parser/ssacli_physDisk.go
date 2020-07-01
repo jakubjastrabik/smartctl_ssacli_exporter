@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"fmt"
 	"strings"
 )
 
@@ -36,7 +37,7 @@ func parseSsacliPhysDisk(s string) *SsacliPhysDisk {
 	var (
 		tmp SsacliPhysDiskData
 	)
-
+	fmt.Println(s)
 	for _, line := range strings.Split(s, "\n") {
 		kvs := strings.Trim(line, " \t")
 		kv := strings.Split(kvs, ": ")
@@ -54,7 +55,7 @@ func parseSsacliPhysDisk(s string) *SsacliPhysDisk {
 				tmp.DriveType = kv[1]
 			case "Interface Type":
 				tmp.IntType = kv[1]
-			case "Total Cache Memory Available":
+			case "Size":
 				tmp.Size = kv[1]
 			case "Logical/Physical Block Size":
 				tmp.BlockSize = kv[1]
