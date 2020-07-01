@@ -62,4 +62,21 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 			physDiskN++
 		}
 	}
+
+	// Export logic raid status
+
+	cmd = "ssacli ctrl slot=0 ld all show status| grep . | cut -f5 -d' '"
+	out, err = exec.Command("bash", "-c", cmd).CombinedOutput()
+
+	if err != nil {
+		log.Printf("[ERROR] failed collecting metric %v: %v", out, err)
+		return
+	}
+
+	logDisk := strings.Split(string(out), "\n")
+	for _, logDisk := range logDisk {
+		if logDisk != "" {
+			collector.NewSsacliLogDiskCollector(logDisk).Collect(ch)
+		}
+	}
 }
