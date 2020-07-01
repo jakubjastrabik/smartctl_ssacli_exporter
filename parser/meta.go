@@ -3,6 +3,7 @@ package parser
 import (
 	"log"
 	"strconv"
+	"strings"
 )
 
 func toINT(s string) int64 {
@@ -19,4 +20,8 @@ func toFLO(s string) float64 {
 		log.Fatalln(err)
 	}
 	return float64(i)
+}
+
+func trim(s string) string {
+	return strings.Trim(s, " \t")
 }

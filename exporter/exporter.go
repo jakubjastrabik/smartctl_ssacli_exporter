@@ -31,6 +31,7 @@ func New() *Exporter {
 func (e *Exporter) Describe(ch chan<- *prometheus.Desc) {
 	collector.NewSsacliSumCollector().Describe(ch)
 	collector.NewSsacliPhysDiskCollector("").Describe(ch)
+	collector.NewSmartctlDiskCollector("", 0).Describe(ch)
 }
 
 // Collect sends the collected metrics from each of the collectors to
@@ -57,6 +58,7 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 	for _, physDisk := range physDisk {
 		if physDisk != "" {
 			collector.NewSsacliPhysDiskCollector(physDisk).Collect(ch)
+			collector.NewSmartctlDiskCollector(physDisk, physDiskN).Collect(ch)
 			physDiskN++
 		}
 	}
