@@ -13,11 +13,12 @@ var _ prometheus.Collector = &SsacliLogDiskCollector{}
 // SsacliLogDiskCollector Contain raid controller detail information
 type SsacliLogDiskCollector struct {
 	diskID    string
+	conID     string
 	cylinders *prometheus.Desc
 }
 
 // NewSsacliLogDiskCollector Create new collector
-func NewSsacliLogDiskCollector(diskID string) *SsacliLogDiskCollector {
+func NewSsacliLogDiskCollector(diskID, conID string) *SsacliLogDiskCollector {
 	// Init labels
 	var (
 		namespace = "ssacli"
@@ -36,6 +37,7 @@ func NewSsacliLogDiskCollector(diskID string) *SsacliLogDiskCollector {
 	// Include labels
 	return &SsacliLogDiskCollector{
 		diskID: diskID,
+		conID:  conID,
 		cylinders: prometheus.NewDesc(
 			prometheus.BuildFQName(namespace, subsystem, "cylinders"),
 			"Logical array cylinder count",
@@ -71,7 +73,7 @@ func (c *SsacliLogDiskCollector) collect(ch chan<- prometheus.Metric) (*promethe
 		return nil, nil
 	}
 
-	cmd := "ssacli ctrl slot=0 ld " + c.diskID + " show | grep ."
+	cmd := "ssacli ctrl slot=" + c.conID + " ld " + c.diskID + " show | grep ."
 	out, err := exec.Command("bash", "-c", cmd).CombinedOutput()
 
 	if err != nil {

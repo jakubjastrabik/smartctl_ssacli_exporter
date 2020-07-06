@@ -30,8 +30,9 @@ func New() *Exporter {
 // the provided channel.
 func (e *Exporter) Describe(ch chan<- *prometheus.Desc) {
 	collector.NewSsacliSumCollector().Describe(ch)
-	collector.NewSsacliPhysDiskCollector("").Describe(ch)
+	collector.NewSsacliPhysDiskCollector("", "").Describe(ch)
 	collector.NewSmartctlDiskCollector("", 0).Describe(ch)
+	collector.NewSsacliLogDiskCollector("", "").Describe(ch)
 }
 
 // Collect sends the collected metrics from each of the collectors to
@@ -52,7 +53,7 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 	physDiskN := 1
 	for _, physDisk := range physDisk {
 		if physDisk != "" {
-			collector.NewSsacliPhysDiskCollector(physDisk).Collect(ch)
+			collector.NewSsacliPhysDiskCollector(physDisk, conID).Collect(ch)
 			collector.NewSmartctlDiskCollector(physDisk, physDiskN).Collect(ch)
 			physDiskN++
 		}
@@ -71,7 +72,7 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 	logDisk := strings.Split(string(out), "\n")
 	for _, logDisk := range logDisk {
 		if logDisk != "" {
-			collector.NewSsacliLogDiskCollector(logDisk).Collect(ch)
+			collector.NewSsacliLogDiskCollector(logDisk, conID).Collect(ch)
 		}
 	}
 }

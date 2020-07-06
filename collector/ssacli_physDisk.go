@@ -13,12 +13,13 @@ var _ prometheus.Collector = &SsacliPhysDiskCollector{}
 // SsacliPhysDiskCollector Contain raid controller detail information
 type SsacliPhysDiskCollector struct {
 	diskID  string
+	conID   string
 	curTemp *prometheus.Desc
 	maxTemp *prometheus.Desc
 }
 
 // NewSsacliPhysDiskCollector Create new collector
-func NewSsacliPhysDiskCollector(diskID string) *SsacliPhysDiskCollector {
+func NewSsacliPhysDiskCollector(diskID, conID string) *SsacliPhysDiskCollector {
 	// Init labels
 	var (
 		namespace = "ssacli"
@@ -41,6 +42,7 @@ func NewSsacliPhysDiskCollector(diskID string) *SsacliPhysDiskCollector {
 	// Include labels
 	return &SsacliPhysDiskCollector{
 		diskID: diskID,
+		conID:  conID,
 		curTemp: prometheus.NewDesc(
 			prometheus.BuildFQName(namespace, subsystem, "curTemp"),
 			"Actual physical disk temperature",
@@ -83,7 +85,7 @@ func (c *SsacliPhysDiskCollector) collect(ch chan<- prometheus.Metric) (*prometh
 		return nil, nil
 	}
 
-	cmd := "ssacli ctrl slot=0 pd " + c.diskID + " show detail | grep ."
+	cmd := "ssacli ctrl slot=" + c.conID + " pd " + c.diskID + " show detail | grep ."
 	out, err := exec.Command("bash", "-c", cmd).CombinedOutput()
 
 	if err != nil {
