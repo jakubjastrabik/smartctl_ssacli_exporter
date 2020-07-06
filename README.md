@@ -20,3 +20,7 @@ git clone https://github.com/jakubjastrabik/smartctl_ssacli_exporter.git
 go get
 go build
 ```
+
+## Dashboard
+Grafana ID: 12587
+https://grafana.com/grafana/dashboards/12587

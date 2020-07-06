@@ -1,0 +1,1755 @@
+{
+        "__inputs": [
+          {
+            "name": "DS_PROMETHEUS",
+            "label": "Prometheus",
+            "description": "",
+            "type": "datasource",
+            "pluginId": "prometheus",
+            "pluginName": "Prometheus"
+          }
+        ],
+        "__requires": [
+          {
+            "type": "grafana",
+            "id": "grafana",
+            "name": "Grafana",
+            "version": "7.0.0"
+          },
+          {
+            "type": "panel",
+            "id": "graph",
+            "name": "Graph",
+            "version": ""
+          },
+          {
+            "type": "datasource",
+            "id": "prometheus",
+            "name": "Prometheus",
+            "version": "1.0.0"
+          },
+          {
+            "type": "panel",
+            "id": "stat",
+            "name": "Stat",
+            "version": ""
+          },
+          {
+            "type": "panel",
+            "id": "table",
+            "name": "Table",
+            "version": ""
+          }
+        ],
+        "annotations": {
+          "list": [
+            {
+              "builtIn": 1,
+              "datasource": "-- Grafana --",
+              "enable": true,
+              "hide": true,
+              "iconColor": "rgba(0, 211, 255, 1)",
+              "name": "Annotations & Alerts",
+              "type": "dashboard"
+            }
+          ]
+        },
+        "editable": true,
+        "gnetId": null,
+        "graphTooltip": 0,
+        "id": null,
+        "iteration": 1594026128190,
+        "links": [],
+        "panels": [
+          {
+            "collapsed": false,
+            "datasource": "${DS_PROMETHEUS}",
+            "gridPos": {
+              "h": 1,
+              "w": 24,
+              "x": 0,
+              "y": 0
+            },
+            "id": 26,
+            "panels": [],
+            "title": "Logical Array",
+            "type": "row"
+          },
+          {
+            "datasource": "${DS_PROMETHEUS}",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {
+                  "align": null
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 0,
+              "y": 1
+            },
+            "id": 30,
+            "options": {
+              "showHeader": true
+            },
+            "pluginVersion": "7.0.0",
+            "targets": [
+              {
+                "expr": "ssacli_logical_array_cylinders{instance=~\"$instance:9633\", LName=~\"$LName\"}",
+                "format": "table",
+                "instant": true,
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Panel Title",
+            "transformations": [
+              {
+                "id": "filterFieldsByName",
+                "options": {
+                  "include": {
+                    "names": [
+                      "Caching",
+                      "LName",
+                      "Size",
+                      "Status",
+                      "LID",
+                      "UID"
+                    ]
+                  }
+                }
+              },
+              {
+                "id": "organize",
+                "options": {
+                  "excludeByName": {},
+                  "indexByName": {
+                    "Caching": 5,
+                    "LID": 2,
+                    "LName": 0,
+                    "Size": 3,
+                    "Status": 1,
+                    "UID": 4
+                  },
+                  "renameByName": {
+                    "Caching": "Cache Status",
+                    "LID": "Logical Identifire",
+                    "LName": "Logical Name",
+                    "Size": "Array Size",
+                    "Status": "Array Status",
+                    "UID": "Unique Identifire"
+                  }
+                }
+              }
+            ],
+            "type": "table"
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "${DS_PROMETHEUS}",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 12,
+              "y": 1
+            },
+            "hiddenSeries": false,
+            "id": 28,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "ssacli_logical_array_cylinders{instance=~\"$instance:9633\", LName=~\"$LName\"}",
+                "interval": "",
+                "legendFormat": "{{LName}}",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Array Cylinder",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "collapsed": false,
+            "datasource": "${DS_PROMETHEUS}",
+            "gridPos": {
+              "h": 1,
+              "w": 24,
+              "x": 0,
+              "y": 9
+            },
+            "id": 2,
+            "panels": [],
+            "title": "Raid Card Information",
+            "type": "row"
+          },
+          {
+            "datasource": "${DS_PROMETHEUS}",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {
+                  "align": "center"
+                },
+                "mappings": [
+                  {
+                    "from": "",
+                    "id": 0,
+                    "operator": "",
+                    "text": "",
+                    "to": "",
+                    "type": 1,
+                    "value": ""
+                  }
+                ],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "raidControllerBatteryStatus"
+                  },
+                  "properties": [
+                    {
+                      "id": "displayName",
+                      "value": "Battery Status"
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "raidControllerDriverName"
+                  },
+                  "properties": [
+                    {
+                      "id": "displayName",
+                      "value": "Driver Name"
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "raidControllerDriverVersion"
+                  },
+                  "properties": [
+                    {
+                      "id": "displayName",
+                      "value": "Driver Version"
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "raidControllerEncryption"
+                  },
+                  "properties": [
+                    {
+                      "id": "displayName",
+                      "value": "Encryption"
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "raidControllerFirmVersion"
+                  },
+                  "properties": [
+                    {
+                      "id": "displayName",
+                      "value": "Firmware Version"
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "raidControllerSN"
+                  },
+                  "properties": [
+                    {
+                      "id": "displayName",
+                      "value": "Serial Number"
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "raidControllerStatus"
+                  },
+                  "properties": [
+                    {
+                      "id": "displayName",
+                      "value": "Controller Status"
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Value"
+                  },
+                  "properties": [
+                    {
+                      "id": "displayName",
+                      "value": "Physical Slot"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 3,
+              "w": 24,
+              "x": 0,
+              "y": 10
+            },
+            "id": 4,
+            "options": {
+              "showHeader": true
+            },
+            "pluginVersion": "7.0.0",
+            "targets": [
+              {
+                "expr": "ssacli_hw_raid_controller_slot{instance=~\"$instance:9633\"}",
+                "format": "table",
+                "instant": true,
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "",
+            "transformations": [
+              {
+                "id": "filterFieldsByName",
+                "options": {
+                  "include": {
+                    "names": [
+                      "raidControllerBatteryStatus",
+                      "raidControllerDriverName",
+                      "raidControllerDriverVersion",
+                      "raidControllerEncryption",
+                      "raidControllerFirmVersion",
+                      "raidControllerSN",
+                      "raidControllerStatus",
+                      "Value"
+                    ]
+                  }
+                }
+              },
+              {
+                "id": "organize",
+                "options": {
+                  "excludeByName": {},
+                  "indexByName": {
+                    "Value": 7,
+                    "raidControllerBatteryStatus": 1,
+                    "raidControllerDriverName": 2,
+                    "raidControllerDriverVersion": 3,
+                    "raidControllerEncryption": 4,
+                    "raidControllerFirmVersion": 5,
+                    "raidControllerSN": 6,
+                    "raidControllerStatus": 0
+                  },
+                  "renameByName": {}
+                }
+              }
+            ],
+            "transparent": true,
+            "type": "table"
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "${DS_PROMETHEUS}",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {},
+                "mappings": [
+                  {
+                    "from": "",
+                    "id": 0,
+                    "operator": "",
+                    "text": "",
+                    "to": "",
+                    "type": 1,
+                    "value": ""
+                  }
+                ],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 7,
+              "w": 12,
+              "x": 0,
+              "y": 13
+            },
+            "hiddenSeries": false,
+            "id": 6,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pluginVersion": "7.0.0",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "Total Cache",
+                "color": "#37872D",
+                "fillGradient": 2
+              },
+              {
+                "alias": "Use Cache",
+                "color": "#C4162A",
+                "fill": 2
+              }
+            ],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "ssacli_hw_raid_controller_cacheSize{instance=~\"$instance:9633\"} - ssacli_hw_raid_controller_available_cacheSize{instance=~\"$instance:9633\"}",
+                "interval": "",
+                "legendFormat": "Use Cache",
+                "refId": "A"
+              },
+              {
+                "expr": "ssacli_hw_raid_controller_cacheSize{instance=~\"$instance:9633\"}",
+                "interval": "",
+                "legendFormat": "Total Cache",
+                "refId": "B"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Cache",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "transformations": [
+              {
+                "id": "filterFieldsByName",
+                "options": {
+                  "include": {
+                    "names": []
+                  }
+                }
+              }
+            ],
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "datasource": "${DS_PROMETHEUS}",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {},
+                "mappings": [
+                  {
+                    "from": "",
+                    "id": 0,
+                    "operator": "",
+                    "text": "",
+                    "to": "",
+                    "type": 1,
+                    "value": ""
+                  }
+                ],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                },
+                "unit": "celsius"
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 7,
+              "w": 4,
+              "x": 12,
+              "y": 13
+            },
+            "id": 8,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "mean"
+                ],
+                "values": false
+              }
+            },
+            "pluginVersion": "7.0.0",
+            "targets": [
+              {
+                "expr": "ssacli_hw_raid_controller_temperature{instance=~\"$instance:9633\"}",
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Controller Temperature",
+            "transparent": true,
+            "type": "stat"
+          },
+          {
+            "datasource": "${DS_PROMETHEUS}",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {},
+                "mappings": [
+                  {
+                    "from": "",
+                    "id": 0,
+                    "operator": "",
+                    "text": "",
+                    "to": "",
+                    "type": 1,
+                    "value": ""
+                  }
+                ],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                },
+                "unit": "celsius"
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 7,
+              "w": 4,
+              "x": 16,
+              "y": 13
+            },
+            "id": 10,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "mean"
+                ],
+                "values": false
+              }
+            },
+            "pluginVersion": "7.0.0",
+            "targets": [
+              {
+                "expr": "ssacli_hw_raid_controller_temperature_battery{instance=~\"$instance:9633\"}",
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Battery Temperature",
+            "transparent": true,
+            "type": "stat"
+          },
+          {
+            "datasource": "${DS_PROMETHEUS}",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {},
+                "mappings": [
+                  {
+                    "from": "",
+                    "id": 0,
+                    "operator": "",
+                    "text": "",
+                    "to": "",
+                    "type": 1,
+                    "value": ""
+                  }
+                ],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                },
+                "unit": "celsius"
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 7,
+              "w": 4,
+              "x": 20,
+              "y": 13
+            },
+            "id": 9,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "mean"
+                ],
+                "values": false
+              }
+            },
+            "pluginVersion": "7.0.0",
+            "targets": [
+              {
+                "expr": "ssacli_hw_raid_controller_temperature_cacheModule{instance=~\"$instance:9633\"}",
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Cache Modul Temperature",
+            "transparent": true,
+            "type": "stat"
+          },
+          {
+            "collapsed": false,
+            "datasource": "${DS_PROMETHEUS}",
+            "gridPos": {
+              "h": 1,
+              "w": 24,
+              "x": 0,
+              "y": 20
+            },
+            "id": 12,
+            "panels": [],
+            "title": "Disk Information",
+            "type": "row"
+          },
+          {
+            "datasource": "${DS_PROMETHEUS}",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {
+                  "align": "center"
+                },
+                "mappings": [
+                  {
+                    "from": "",
+                    "id": 1,
+                    "operator": "",
+                    "text": "",
+                    "to": "",
+                    "type": 1
+                  }
+                ],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Status"
+                  },
+                  "properties": [
+                    {
+                      "id": "thresholds",
+                      "value": {
+                        "mode": "absolute",
+                        "steps": [
+                          {
+                            "color": "green",
+                            "value": null
+                          },
+                          {
+                            "color": "red",
+                            "value": ""
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 24,
+              "x": 0,
+              "y": 21
+            },
+            "id": 16,
+            "options": {
+              "showHeader": true
+            },
+            "pluginVersion": "7.0.0",
+            "targets": [
+              {
+                "expr": "ssacli_physical_disk_curTemp{instance=~\"$instance:9633\"}",
+                "format": "table",
+                "instant": true,
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "",
+            "transformations": [
+              {
+                "id": "filterFieldsByName",
+                "options": {
+                  "include": {
+                    "names": [
+                      "Bay",
+                      "BlockSize",
+                      "DriveType",
+                      "IntType",
+                      "Model",
+                      "SN",
+                      "Size",
+                      "Status",
+                      "WWID",
+                      "diskID"
+                    ]
+                  }
+                }
+              },
+              {
+                "id": "organize",
+                "options": {
+                  "excludeByName": {},
+                  "indexByName": {
+                    "Bay": 2,
+                    "BlockSize": 4,
+                    "DriveType": 5,
+                    "IntType": 6,
+                    "Model": 7,
+                    "SN": 8,
+                    "Size": 3,
+                    "Status": 0,
+                    "WWID": 9,
+                    "diskID": 1
+                  },
+                  "renameByName": {
+                    "BlockSize": "Block Size",
+                    "DriveType": "Driver Type",
+                    "IntType": "Interface type",
+                    "Model": "",
+                    "SN": "Serial Number",
+                    "Status": "",
+                    "diskID": "Disk ID"
+                  }
+                }
+              }
+            ],
+            "transparent": true,
+            "type": "table"
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "${DS_PROMETHEUS}",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {},
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 10,
+              "w": 12,
+              "x": 0,
+              "y": 30
+            },
+            "hiddenSeries": false,
+            "id": 14,
+            "legend": {
+              "alignAsTable": true,
+              "avg": true,
+              "current": true,
+              "hideEmpty": false,
+              "hideZero": false,
+              "max": true,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pluginVersion": "7.0.0",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "sum(ssacli_physical_disk_curTemp{instance=~\"$instance:9633\", diskID=~\"$diskID\"}) by (diskID)",
+                "hide": false,
+                "interval": "",
+                "legendFormat": "Cur temp Disk: {{diskID}}",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Disk Temperature",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "transformations": [],
+            "transparent": true,
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "celsius",
+                "label": "",
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": false
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "cacheTimeout": null,
+            "datasource": "${DS_PROMETHEUS}",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {
+                  "align": null,
+                  "displayMode": "auto"
+                },
+                "mappings": [
+                  {
+                    "from": "",
+                    "id": 1,
+                    "operator": "",
+                    "text": "",
+                    "to": "",
+                    "type": 1
+                  }
+                ],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Value #A"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "h"
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Value #B"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "short"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 10,
+              "w": 11,
+              "x": 13,
+              "y": 30
+            },
+            "id": 18,
+            "interval": null,
+            "links": [],
+            "maxDataPoints": 3,
+            "options": {
+              "frameIndex": 1,
+              "showHeader": true
+            },
+            "pluginVersion": "7.0.0",
+            "repeat": null,
+            "targets": [
+              {
+                "expr": "sum(smartctl_physical_disk_powerOnHours{instance=~\"$instance:9633\", diskID=~\"$diskID\"}) by (diskID, model)",
+                "format": "table",
+                "instant": true,
+                "interval": "",
+                "intervalFactor": 1,
+                "legendFormat": "",
+                "refId": "A"
+              },
+              {
+                "expr": "sum(smartctl_physical_disk_powerCycleCount{instance=~\"$instance:9633\", diskID=~\"$diskID\"}) by (diskID)",
+                "format": "table",
+                "instant": true,
+                "interval": "",
+                "intervalFactor": 1,
+                "legendFormat": "",
+                "refId": "B"
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Disk Lifetime",
+            "transformations": [
+              {
+                "id": "seriesToColumns",
+                "options": {
+                  "byField": "diskID"
+                }
+              },
+              {
+                "id": "filterFieldsByName",
+                "options": {
+                  "include": {
+                    "names": [
+                      "diskID",
+                      "Value #A",
+                      "Value #B",
+                      "model"
+                    ]
+                  }
+                }
+              },
+              {
+                "id": "organize",
+                "options": {
+                  "excludeByName": {},
+                  "indexByName": {},
+                  "renameByName": {
+                    "Value #A": "Power ON",
+                    "Value #B": "Power Cycles",
+                    "diskID": "Disk ID",
+                    "model": "Model"
+                  }
+                }
+              }
+            ],
+            "transparent": true,
+            "type": "table"
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "${DS_PROMETHEUS}",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 0,
+              "y": 40
+            },
+            "hiddenSeries": false,
+            "id": 20,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "/.*/",
+                "color": "#C4162A"
+              }
+            ],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "smartctl_physical_disk_endToEndError{instance=~\"$instance:9633\", diskID=~\"$diskID\"}",
+                "format": "time_series",
+                "instant": false,
+                "interval": "",
+                "legendFormat": "End-to-End: {{diskID}}",
+                "refId": "A"
+              },
+              {
+                "expr": "smartctl_physical_disk_offlineUncorrectable{instance=~\"$instance:9633\", diskID=~\"$diskID\"}",
+                "format": "time_series",
+                "instant": false,
+                "interval": "",
+                "legendFormat": "Offline Unrec: {{diskID}}",
+                "refId": "B"
+              },
+              {
+                "expr": "smartctl_physical_disk_rawReadErrorRate{instance=~\"$instance:9633\", diskID=~\"$diskID\"}",
+                "format": "time_series",
+                "instant": false,
+                "interval": "",
+                "legendFormat": "Raw Read: {{diskID}}",
+                "refId": "C"
+              },
+              {
+                "expr": "smartctl_physical_disk_runtimeBadBlock{instance=~\"$instance:9633\", diskID=~\"$diskID\"}",
+                "interval": "",
+                "legendFormat": "Bad Block: {{diskID}}",
+                "refId": "D"
+              },
+              {
+                "expr": "smartctl_physical_disk_reportedUncorrect{instance=~\"$instance:9633\", diskID=~\"$diskID\"}",
+                "interval": "",
+                "legendFormat": "Uncorrect: {{diskID}}",
+                "refId": "E"
+              },
+              {
+                "expr": "smartctl_physical_disk_uDMACRCErrorCount{instance=~\"$instance:9633\", diskID=~\"$diskID\"}",
+                "interval": "",
+                "legendFormat": "DMACRC: {{diskID}}",
+                "refId": "F"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Disk Errors",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "transparent": true,
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": false
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "${DS_PROMETHEUS}",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 12,
+              "y": 40
+            },
+            "hiddenSeries": false,
+            "id": 21,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "smartctl_physical_disk_reallocatedEventCount{instance=~\"$instance:9633\", diskID=~\"$diskID\"}",
+                "format": "time_series",
+                "instant": false,
+                "interval": "",
+                "legendFormat": "Event: {{diskID}}",
+                "refId": "A"
+              },
+              {
+                "expr": "smartctl_physical_disk_reallocatedSectorCt{instance=~\"$instance:9633\", diskID=~\"$diskID\"}",
+                "format": "time_series",
+                "instant": false,
+                "interval": "",
+                "legendFormat": "Sector: {{diskID}}",
+                "refId": "B"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Realocated Stat",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "transparent": true,
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": false
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "${DS_PROMETHEUS}",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 0,
+              "y": 49
+            },
+            "hiddenSeries": false,
+            "id": 23,
+            "legend": {
+              "alignAsTable": true,
+              "avg": true,
+              "current": false,
+              "max": true,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "smartctl_physical_disk_commandTimeout{instance=~\"$instance:9633\", diskID=~\"$diskID\"}",
+                "interval": "",
+                "legendFormat": "{{diskID}}",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Comand Timeout",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "transparent": true,
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "${DS_PROMETHEUS}",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 12,
+              "y": 49
+            },
+            "hiddenSeries": false,
+            "id": 24,
+            "legend": {
+              "alignAsTable": true,
+              "avg": true,
+              "current": false,
+              "max": true,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "smartctl_physical_disk_currentPendingSector{instance=~\"$instance:9633\", diskID=~\"$diskID\"}",
+                "interval": "",
+                "legendFormat": "Pending: {{diskID}}",
+                "refId": "A"
+              },
+              {
+                "expr": "smartctl_physical_disk_unusedRsvdBlkCntTot{instance=~\"$instance:9633\", diskID=~\"$diskID\"}",
+                "interval": "",
+                "legendFormat": "Unused Reserved: {{diskID}}",
+                "refId": "B"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": " Sector",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "transparent": true,
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          }
+        ],
+        "schemaVersion": 25,
+        "style": "dark",
+        "tags": [],
+        "templating": {
+          "list": [
+            {
+              "allValue": null,
+              "current": {},
+              "datasource": "${DS_PROMETHEUS}",
+              "definition": "label_values(smartctl_physical_disk_powerOnHours, instance)",
+              "hide": 0,
+              "includeAll": false,
+              "label": "Host: ",
+              "multi": false,
+              "name": "instance",
+              "options": [],
+              "query": "label_values(smartctl_physical_disk_powerOnHours, instance)",
+              "refresh": 2,
+              "regex": "/(.*)+:/",
+              "skipUrlSync": false,
+              "sort": 1,
+              "tagValuesQuery": "",
+              "tags": [],
+              "tagsQuery": "",
+              "type": "query",
+              "useTags": false
+            },
+            {
+              "allValue": null,
+              "current": {},
+              "datasource": "${DS_PROMETHEUS}",
+              "definition": "label_values(smartctl_physical_disk_powerOnHours{instance=~\"$instance:9633\"}, diskID)",
+              "hide": 0,
+              "includeAll": true,
+              "label": "Disk",
+              "multi": true,
+              "name": "diskID",
+              "options": [],
+              "query": "label_values(smartctl_physical_disk_powerOnHours{instance=~\"$instance:9633\"}, diskID)",
+              "refresh": 2,
+              "regex": "",
+              "skipUrlSync": false,
+              "sort": 0,
+              "tagValuesQuery": "",
+              "tags": [],
+              "tagsQuery": "",
+              "type": "query",
+              "useTags": false
+            },
+            {
+              "allValue": null,
+              "current": {},
+              "datasource": "${DS_PROMETHEUS}",
+              "definition": "label_values(ssacli_logical_array_cylinders, LName)",
+              "hide": 0,
+              "includeAll": true,
+              "label": "Array",
+              "multi": true,
+              "name": "LName",
+              "options": [],
+              "query": "label_values(ssacli_logical_array_cylinders, LName)",
+              "refresh": 2,
+              "regex": "",
+              "skipUrlSync": false,
+              "sort": 0,
+              "tagValuesQuery": "",
+              "tags": [],
+              "tagsQuery": "",
+              "type": "query",
+              "useTags": false
+            }
+          ]
+        },
+        "time": {
+          "from": "now-6h",
+          "to": "now"
+        },
+        "timepicker": {
+          "refresh_intervals": [
+            "10s",
+            "30s",
+            "1m",
+            "5m",
+            "15m",
+            "30m",
+            "1h",
+            "2h",
+            "1d"
+          ]
+        },
+        "timezone": "",
+        "title": "Smart disk data",
+        "uid": "203qevMMk",
+        "version": 19
+      }
