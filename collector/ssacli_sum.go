@@ -8,10 +8,14 @@ import (
 	"github.com/prometheus/common/log"
 )
 
+// ConID save controller slot number
+var ConID string
+
 var _ prometheus.Collector = &SsacliSumCollector{}
 
 // SsacliSumCollector Contain raid controller detail information
 type SsacliSumCollector struct {
+	id                 string
 	hwConSlotDesc      *prometheus.Desc
 	cacheSizeDesc      *prometheus.Desc
 	availCacheSizeDesc *prometheus.Desc
@@ -134,6 +138,8 @@ func (c *SsacliSumCollector) collect(ch chan<- prometheus.Metric) (*prometheus.D
 			}
 		)
 
+		ConID = data.SsacliSumData[i].SlotID
+
 		ch <- prometheus.MustNewConstMetric(
 			c.hwConSlotDesc,
 			prometheus.GaugeValue,
@@ -170,6 +176,7 @@ func (c *SsacliSumCollector) collect(ch chan<- prometheus.Metric) (*prometheus.D
 			float64(data.SsacliSumData[i].BatteryTemp),
 			labels...,
 		)
+
 	}
 	return nil, nil
 }

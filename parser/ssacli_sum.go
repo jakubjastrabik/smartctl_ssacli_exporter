@@ -13,6 +13,7 @@ type SsacliSum struct {
 // SsacliSumData data structure for output
 type SsacliSumData struct {
 	Slot           int64
+	SlotID         string
 	SerialNumber   string
 	ContStatus     string
 	FirmVersion    string
@@ -51,6 +52,7 @@ func parseSmartAttrs(s string) *SsacliSum {
 			switch kv[0] {
 			case "Slot":
 				tmp.Slot = toINT(kv[1])
+				tmp.SlotID = kv[1]
 			case "Serial Number":
 				tmp.SerialNumber = kv[1]
 			case "Controller Status":
