@@ -3,9 +3,8 @@ package collector
 import (
 	"os/exec"
 
-	"github.com/jakubjastrabik/smartctl_ssacli_exporter/parser"
+	"smartctl_ssacli_exporter/parser"
 	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/common/log"
 )
 
 var _ prometheus.Collector = &SsacliPhysDiskCollector{}
@@ -74,7 +73,7 @@ func (c *SsacliPhysDiskCollector) Describe(ch chan<- *prometheus.Desc) {
 // Handle error
 func (c *SsacliPhysDiskCollector) Collect(ch chan<- prometheus.Metric) {
 	if desc, err := c.collect(ch); err != nil {
-		log.Debugln("[ERROR] failed collecting metric %v: %v", desc, err)
+		// log.Debugln("[ERROR] failed collecting metric %v: %v", desc, err)
 		ch <- prometheus.NewInvalidMetric(desc, err)
 		return
 	}
@@ -89,14 +88,14 @@ func (c *SsacliPhysDiskCollector) collect(ch chan<- prometheus.Metric) (*prometh
 	out, err := exec.Command("bash", "-c", cmd).CombinedOutput()
 
 	if err != nil {
-		log.Debugln("[ERROR] smart log: \n%s\n", out)
+		// log.Debugln("[ERROR] smart log: \n%s\n", out)
 		return nil, err
 	}
 
 	data := parser.ParseSsacliPhysDisk(string(out))
 
 	if data == nil {
-		log.Fatal("Unable get data from ssacli sumarry exporter")
+		// log.Fatal("Unable get data from ssacli sumarry exporter")
 		return nil, nil
 	}
 
