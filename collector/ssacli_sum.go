@@ -3,8 +3,9 @@ package collector
 import (
 	"os/exec"
 
-	"smartctl_ssacli_exporter/parser"
+	"github.com/jakubjastrabik/smartctl_ssacli_exporter/parser"
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/common/log"
 )
 
 // ConID save controller slot number
@@ -101,7 +102,7 @@ func (c *SsacliSumCollector) Describe(ch chan<- *prometheus.Desc) {
 // Handle error
 func (c *SsacliSumCollector) Collect(ch chan<- prometheus.Metric) {
 	if desc, err := c.collect(ch); err != nil {
-		// log.Debugln("[ERROR] failed collecting metric %v: %v", desc, err)
+		log.Debugln("[ERROR] failed collecting metric %v: %v", desc, err)
 		ch <- prometheus.NewInvalidMetric(desc, err)
 		return
 	}
@@ -112,14 +113,14 @@ func (c *SsacliSumCollector) collect(ch chan<- prometheus.Metric) (*prometheus.D
 	out, err := exec.Command("bash", "-c", cmd).CombinedOutput()
 
 	if err != nil {
-		// log.Debugln("[ERROR] smart log: \n%s\n", out)
+		log.Debugln("[ERROR] smart log: \n%s\n", out)
 		return nil, err
 	}
 
 	data := parser.ParseSsacliSum(string(out))
 
 	if data == nil {
-		// log.Fatal("Unable get data from ssacli sumarry exporter")
+		log.Fatal("Unable get data from ssacli sumarry exporter")
 		return nil, nil
 	}
 

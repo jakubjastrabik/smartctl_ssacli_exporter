@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"smartctl_ssacli_exporter/exporter"
+	"github.com/jakubjastrabik/smartctl_ssacli_exporter/exporter"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
