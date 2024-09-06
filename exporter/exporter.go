@@ -1,11 +1,13 @@
 package exporter
 
 import (
-	"log"
 	"os/exec"
 	"strings"
 
 	"smartctl_ssacli_exporter/collector"
+	"smartctl_ssacli_exporter/applog"
+	
+	"github.com/go-kit/log/level"
 	"github.com/prometheus/client_golang/prometheus"
 )
 
@@ -45,7 +47,8 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 	out, err := exec.Command("bash", "-c", cmd).CombinedOutput()
 
 	if err != nil {
-		log.Printf("[ERROR] failed collecting metric %v: %v", out, err)
+		level.Debug(applog.Logger).Log("Failed collecting metric", out)
+		level.Error(applog.Logger).Log("Failed collecting metric", err)
 		return
 	}
 
@@ -65,7 +68,8 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 	out, err = exec.Command("bash", "-c", cmd).CombinedOutput()
 
 	if err != nil {
-		log.Printf("[ERROR] failed collecting metric %v: %v", out, err)
+		level.Debug(applog.Logger).Log("Failed collecting metric", out)
+		level.Error(applog.Logger).Log("Failed collecting metric", err)
 		return
 	}
 

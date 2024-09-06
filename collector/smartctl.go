@@ -5,6 +5,9 @@ import (
 	"strconv"
 
 	"smartctl_ssacli_exporter/parser"
+	"smartctl_ssacli_exporter/applog"
+	
+	"github.com/go-kit/log/level"
 	"github.com/prometheus/client_golang/prometheus"
 )
 
@@ -171,7 +174,8 @@ func (c *SmartctlDiskCollector) Describe(ch chan<- *prometheus.Desc) {
 // Handle error
 func (c *SmartctlDiskCollector) Collect(ch chan<- prometheus.Metric) {
 	if desc, err := c.collect(ch); err != nil {
-		// log.Debugln("[ERROR] failed collecting metric %v: %v", desc, err)
+		level.Error(applog.Logger).Log("Failed collect collector", err)
+		level.Error(applog.Logger).Log("Failed collect collector", desc)
 		ch <- prometheus.NewInvalidMetric(desc, err)
 		return
 	}
@@ -186,13 +190,15 @@ func (c *SmartctlDiskCollector) collect(ch chan<- prometheus.Metric) (*prometheu
 	out, err := exec.Command("bash", "-c", cmd).CombinedOutput()
 
 	if err != nil {
-		// log.Debugln("[ERROR] smart log: \n%s\n", out)
+		level.Debug(applog.Logger).Log("Faild get smartctl data", out)
+		level.Error(applog.Logger).Log("Faild get smartctl data", err)
 		return nil, err
 	}
 	data := parser.ParseSmartctlDisk(string(out))
 
 	if data == nil {
-		// log.Fatal("Unable get data from smartctl exporter")
+		level.Debug(applog.Logger).Log("ssacli parse sum:", data)
+		level.Error(applog.Logger).Log("Unable parse data from ssacli sumarry exporter", "No parsed data")
 		return nil, nil
 	}
 
